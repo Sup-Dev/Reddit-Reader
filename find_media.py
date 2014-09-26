@@ -4,7 +4,7 @@ import sys
 # establish a connection to the database
 connection = pymongo.MongoClient("mongodb://localhost")
 
-# get a handle to the school database
+# get a handle to the reddit database
 db = connection.reddit
 scores = db.stories
 
@@ -12,8 +12,8 @@ def find():
     
     print("finding...")
     
-    query = {'title':{'$regex':'Microsoft'}}
-    projection = {'title':1, '_id':0}
+    query = {'media.oembed.type':'video'}
+    projection = {'media.oembed.url':1, '_id':0}
     
     try:
         cursor = scores.find(query, projection)
@@ -26,5 +26,6 @@ def find():
         sanity += 1
         if (sanity > 10):
             break
-    
+            
+            
 find()
